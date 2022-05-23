@@ -15,9 +15,13 @@ const Hello = ({ name, age }) => {
   );
 };
 
-// const Display = (props) => {
-//   return <h1>{props.counter}</h1>;
-// };
+const Display = (props) => {
+  return <h1>{props.counter}</h1>;
+};
+
+const Button = (props) => {
+  return <button onClick={props.onClick}>{props.text}</button>;
+};
 
 const App = () => {
   const [counter, setCounter] = useState(0);
@@ -28,6 +32,9 @@ const App = () => {
   const increaseByOne = () => {
     setCounter(counter + 1);
   };
+  const decreaseByOne = () => {
+    setCounter(counter - 1);
+  };
 
   const setToZero = () => setCounter(0);
 
@@ -37,14 +44,10 @@ const App = () => {
   const age = 10;
   return (
     <>
-      {/* <Display counter={counter}></Display> */}
-      <h1>{counter}</h1>
-      <button onClick={increaseByOne}>plus</button>
-      <button onClick={setToZero}>re-zero</button>
-      {/* <h1>Greetings</h1>
-      <Hello name={name} age={age + 14} />
-      <Hello name="Tony1" age={age + 32} />
-      <Hello name="Tony22" age={age + 43} /> */}
+      <Display counter={counter} />
+      <Button onClick={increaseByOne} text="plus" />
+      <Button onClick={decreaseByOne} text="minus" />
+      <Button onClick={setToZero} text="zero" />
       <Footer />
     </>
   );
