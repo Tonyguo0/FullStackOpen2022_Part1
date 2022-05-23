@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const Hello = ({ name, age }) => {
   /*** can destructure the props object passed to the component function as a parameter */
   // const {name, age} = props
@@ -13,9 +15,13 @@ const Hello = ({ name, age }) => {
   );
 };
 
-const App = (props) => {
-  const { counter } = props;
+const App = () => {
+  const [counter, setCounter] = useState(0);
 
+
+  
+  setTimeout(() => setCounter(counter + 1), 1000);
+  console.log("rendering...", counter);
   const name = "Tony";
   const age = 10;
   return (
@@ -23,8 +29,8 @@ const App = (props) => {
       <h1>{counter}</h1>
       <h1>Greetings</h1>
       <Hello name={name} age={age + 14} />
-      <Hello name="Tony1" />
-      <Hello name="Tony22" />
+      <Hello name="Tony1" age={age + 32} />
+      <Hello name="Tony22" age={age + 43} />
       <Footer />
     </>
   );
