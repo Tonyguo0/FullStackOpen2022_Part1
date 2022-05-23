@@ -15,12 +15,10 @@ const Hello = ({ name, age }) => {
   );
 };
 
-const Display = (props) => {
-  return <h1>{props.counter}</h1>;
-};
+const Display = ({ counter }) => <h1>{counter}</h1>;
 
-const Button = (props) => {
-  return <button onClick={props.onClick}>{props.text}</button>;
+const Button = ({ onClick, text }) => {
+  return <button onClick={onClick}>{text}</button>;
 };
 
 const App = () => {
