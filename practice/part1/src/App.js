@@ -15,22 +15,36 @@ const Hello = ({ name, age }) => {
   );
 };
 
+// const Display = (props) => {
+//   return <h1>{props.counter}</h1>;
+// };
+
 const App = () => {
   const [counter, setCounter] = useState(0);
 
+  const handleClick = () => {
+    console.log("clicked");
+  };
+  const increaseByOne = () => {
+    setCounter(counter + 1);
+  };
 
-  
-  setTimeout(() => setCounter(counter + 1), 1000);
-  console.log("rendering...", counter);
+  const setToZero = () => setCounter(0);
+
+  // setTimeout(() => setCounter(counter + 1), 1000);
+  // console.log("rendering...", counter);
   const name = "Tony";
   const age = 10;
   return (
     <>
+      {/* <Display counter={counter}></Display> */}
       <h1>{counter}</h1>
-      <h1>Greetings</h1>
+      <button onClick={increaseByOne}>plus</button>
+      <button onClick={setToZero}>re-zero</button>
+      {/* <h1>Greetings</h1>
       <Hello name={name} age={age + 14} />
       <Hello name="Tony1" age={age + 32} />
-      <Hello name="Tony22" age={age + 43} />
+      <Hello name="Tony22" age={age + 43} /> */}
       <Footer />
     </>
   );
