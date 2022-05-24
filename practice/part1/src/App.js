@@ -26,12 +26,17 @@ const App = () => {
     setRight(right + 1);
   };
 
+  const Hello = (word) => () => {
+    console.log("Hello ", word);
+  };
+
   // setTimeout(() => setCounter(counter + 1), 1000);
   // console.log("rendering...", counter);
   const name = "Tony";
   const age = 10;
   return (
     <>
+      <button onClick={Hello("Tony")}>tony</button>
       {left}
       <Button handleClick={handleLeftClick} text="left" />
       <Button handleClick={handleRightClick} text="right" />
