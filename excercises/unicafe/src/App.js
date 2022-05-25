@@ -1,7 +1,10 @@
 import { useState } from "react";
+import "./App.css";
 
 const Statistics = ({ good, neutral, bad }) => {
   const all = good + neutral + bad;
+  const average = (bad * -1 + good) / all;
+  const positive = (good / all) * 100;
   if (all <= 0) {
     return <>No feedback given</>;
   }
@@ -11,50 +14,24 @@ const Statistics = ({ good, neutral, bad }) => {
       <StatisticLine text="good" value={good} />
       <StatisticLine text="neutral" value={neutral} />
       <StatisticLine text="bad" value={bad} />
-      <AllLine text="all" all={all} />
-      <AverageLine text="average" bad={bad} good={good} all={all} />
-      <PositiveLine text="positive" good={good} all={all} />
+      <StatisticLine text="all" value={all} />
+      <StatisticLine text="average" value={average} />
+      <StatisticLine text="positive" value={positive + "%"} />
     </>
   );
 };
 
 const StatisticLine = ({ text, value }) => {
   return (
-    <p>
-      {text} {value}
-    </p>
-  );
-};
+    <table>
+      <tbody>
+        <tr>
+          <td>{text}</td>
 
-const AllLine = ({ text, all }) => {
-  return (
-    <p>
-      {text} {all}
-    </p>
-  );
-};
-
-const AverageLine = ({ text, bad, good, all }) => {
-  const average = () => {
-    return (bad * -1 + good) / all;
-  };
-
-  return (
-    <p>
-      {text} {average()}
-    </p>
-  );
-};
-
-const PositiveLine = ({ text, good, all }) => {
-  const positive = () => {
-    return (good / all) * 100;
-  };
-
-  return (
-    <p>
-      {text} {positive()}%
-    </p>
+          <td>{value}</td>
+        </tr>
+      </tbody>
+    </table>
   );
 };
 
