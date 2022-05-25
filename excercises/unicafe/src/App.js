@@ -20,6 +20,18 @@ const App = () => {
     return bad;
   };
 
+  const all = () => {
+    return bad + good + neutral;
+  };
+
+  const average = () => {
+    return (bad * -1 + good) / all();
+  };
+
+  const positive = () => {
+    return (good / all()) * 100;
+  };
+
   return (
     <>
       <h1>give feedback</h1>
@@ -35,6 +47,9 @@ const App = () => {
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
+      <p>all {all()}</p>
+      <p>average {average()}</p>
+      <p>positive {positive()}%</p>
     </>
   );
 };
