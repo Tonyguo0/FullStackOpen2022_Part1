@@ -1,31 +1,60 @@
 import { useState } from "react";
 
 const Statistics = ({ good, neutral, bad }) => {
-  const all = () => {
-    return bad + good + neutral;
-  };
-
-  const average = () => {
-    return (bad * -1 + good) / all();
-  };
-
-  const positive = () => {
-    return (good / all()) * 100;
-  };
-
-  if (all() === 0) {
+  const all = good + neutral + bad;
+  if (all <= 0) {
     return <>No feedback given</>;
   }
 
   return (
     <>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {all()}</p>
-      <p>average {average()}</p>
-      <p>positive {positive()}%</p>
+      <StatisticLine text="good" value={good} />
+      <StatisticLine text="neutral" value={neutral} />
+      <StatisticLine text="bad" value={bad} />
+      <AllLine text="all" all={all} />
+      <AverageLine text="average" bad={bad} good={good} all={all} />
+      <PositiveLine text="positive" good={good} all={all} />
     </>
+  );
+};
+
+const StatisticLine = ({ text, value }) => {
+  return (
+    <p>
+      {text} {value}
+    </p>
+  );
+};
+
+const AllLine = ({ text, all }) => {
+  return (
+    <p>
+      {text} {all}
+    </p>
+  );
+};
+
+const AverageLine = ({ text, bad, good, all }) => {
+  const average = () => {
+    return (bad * -1 + good) / all;
+  };
+
+  return (
+    <p>
+      {text} {average()}
+    </p>
+  );
+};
+
+const PositiveLine = ({ text, good, all }) => {
+  const positive = () => {
+    return (good / all) * 100;
+  };
+
+  return (
+    <p>
+      {text} {positive()}%
+    </p>
   );
 };
 
