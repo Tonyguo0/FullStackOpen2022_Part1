@@ -1,5 +1,15 @@
 import { useState } from "react";
 
+const Most = ({ anecdotes, most, count }) => {
+  return (
+    <div>
+      <h1>Anecdote with most votes</h1>
+      {anecdotes[most]}
+      <div>has {count[most]} votes</div>
+    </div>
+  );
+};
+
 const App = () => {
   const Rand = (min, max) => {
     let random = Math.floor(Math.random() * (max - min) + min);
@@ -12,9 +22,13 @@ const App = () => {
   const Vote = () => {
     const copy = [...count];
     copy[selected]++;
-    setCount(copy)
-  };
+    setCount(copy);
+    console.log("count=", count[selected]);
 
+    if (copy[selected] > copy[most]) {
+      setMost(selected);
+    }
+  };
 
   const anecdotes = [
     "If it hurts, do it more often",
@@ -28,17 +42,25 @@ const App = () => {
 
   const [selected, setSelected] = useState(0);
   const [count, setCount] = useState(new Uint8Array(7));
+  const [most, setMost] = useState(0);
 
   return (
-    <div>
-      {anecdotes[selected]}
-      <div>has {count[selected]} votes</div>
+    <>
       <div>
-        <button onClick={() => Vote()}>vote</button>
+        <h1>Anecdote of the day</h1>
+        {anecdotes[selected]}
+        <div>has {count[selected]} votes</div>
+        <div>
+          <button onClick={Vote}>vote</button>
 
-        <button onClick={() => Rand(0, anecdotes.length)}>next anecdote</button>
+          <button onClick={() => Rand(0, anecdotes.length)}>
+            next anecdote
+          </button>
+        </div>
       </div>
-    </div>
+
+      <Most anecdotes={anecdotes} most={most} count={count} />
+    </>
   );
 };
 
