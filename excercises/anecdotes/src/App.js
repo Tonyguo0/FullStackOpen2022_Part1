@@ -25,9 +25,19 @@ const App = () => {
     setCount(copy);
     console.log("count=", count[selected]);
 
-    if (copy[selected] > copy[most]) {
-      setMost(selected);
-    }
+    // if (copy[selected] > copy[most]) {
+    //   setMost(selected);
+    // }
+  };
+
+  /*****
+   * find out why this doesn't work****
+   *
+   */
+  const MostFunc = () => {
+    const max = Math.max(...count);
+    const index = count.indexOf(max);
+    setMost(index);
   };
 
   const anecdotes = [
@@ -51,7 +61,14 @@ const App = () => {
         {anecdotes[selected]}
         <div>has {count[selected]} votes</div>
         <div>
-          <button onClick={Vote}>vote</button>
+          <button
+            onClick={() => {
+              Vote();
+              MostFunc();
+            }}
+          >
+            vote
+          </button>
 
           <button onClick={() => Rand(0, anecdotes.length)}>
             next anecdote
