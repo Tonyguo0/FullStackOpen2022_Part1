@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Most = ({ anecdotes, most, count }) => {
   return (
@@ -11,6 +11,10 @@ const Most = ({ anecdotes, most, count }) => {
 };
 
 const App = () => {
+  const [selected, setSelected] = useState(0);
+  const [count, setCount] = useState(new Uint8Array(7));
+  const [most, setMost] = useState(0);
+
   const Rand = (min, max) => {
     let random = Math.floor(Math.random() * (max - min) + min);
     if (random === selected) {
@@ -23,22 +27,14 @@ const App = () => {
     const copy = [...count];
     copy[selected]++;
     setCount(copy);
-    console.log("count=", count[selected]);
-
-    // if (copy[selected] > copy[most]) {
-    //   setMost(selected);
-    // }
   };
 
-  /*****
-   * find out why this doesn't work****
-   *
-   */
-  const MostFunc = () => {
+  useEffect(() => {
     const max = Math.max(...count);
     const index = count.indexOf(max);
     setMost(index);
-  };
+    console.log("in use effect index = ", index)
+  }, [count]);
 
   const anecdotes = [
     "If it hurts, do it more often",
@@ -50,10 +46,6 @@ const App = () => {
     "Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients",
   ];
 
-  const [selected, setSelected] = useState(0);
-  const [count, setCount] = useState(new Uint8Array(7));
-  const [most, setMost] = useState(0);
-
   return (
     <>
       <div>
@@ -61,14 +53,7 @@ const App = () => {
         {anecdotes[selected]}
         <div>has {count[selected]} votes</div>
         <div>
-          <button
-            onClick={() => {
-              Vote();
-              MostFunc();
-            }}
-          >
-            vote
-          </button>
+          <button onClick={Vote}>vote</button>
 
           <button onClick={() => Rand(0, anecdotes.length)}>
             next anecdote
